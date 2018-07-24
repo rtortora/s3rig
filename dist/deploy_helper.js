@@ -24,7 +24,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var CF_INVALIDATE_WAIT_TIME_MS = 1000;
+var CF_INVALIDATE_WAIT_TIME_MS = 2000;
 
 var DeployHelper = function () {
   function DeployHelper() {
@@ -78,19 +78,18 @@ var DeployHelper = function () {
                 invalidationId = parsed.Invalidation.Id;
                 status = parsed.Invalidation.Status;
 
-                console.log('  status ' + status);
-
                 if (!(status != "Completed")) {
                   _context.next = 36;
                   break;
                 }
 
-              case 22:
+              case 21:
                 if (!(status != "Completed")) {
                   _context.next = 35;
                   break;
                 }
 
+                console.log('  status ' + status);
                 _context.next = 25;
                 return new Promise(function (resolve) {
                   setTimeout(function () {
@@ -112,7 +111,7 @@ var DeployHelper = function () {
                 }
                 parsed = JSON.parse(_stdout);
                 status = parsed.Invalidation.Status;
-                _context.next = 22;
+                _context.next = 21;
                 break;
 
               case 35:
