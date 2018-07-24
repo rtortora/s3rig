@@ -3,7 +3,13 @@
   "version": "1.0.0",
   "main": "index.js",
   "author": "Richard Tortora <richard.tortora@gmail.com>",
-  "license": "MIT",
+  "license": "UNLICENSED",
+  "scripts": {
+    "build": "node --require babel-register --require babel-polyfill scripts/build.js"
+  },
+  "bin": {
+    "s3rig": "./dist/s3rig.bin.js"
+  },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
