@@ -2,7 +2,7 @@ import _ from 'lodash';
 import Execa from 'execa';
 import Project from './project';
 
-const CF_INVALIDATE_WAIT_TIME_MS = 1000;
+const CF_INVALIDATE_WAIT_TIME_MS = 2000;
 
 class DeployHelper {
   static async deploy(env) {
@@ -22,9 +22,9 @@ class DeployHelper {
         let parsed = JSON.parse(stdout);
         const invalidationId = parsed.Invalidation.Id;
         let status = parsed.Invalidation.Status;
-        console.log(`  status ${status}`);
         if (status != "Completed") {
           while (status != "Completed") {
+            console.log(`  status ${status}`);
             await new Promise((resolve)=>{
               setTimeout(()=>{ resolve(); }, CF_INVALIDATE_WAIT_TIME_MS);
             });
