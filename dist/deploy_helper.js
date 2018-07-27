@@ -118,19 +118,29 @@ var DeployHelper = function () {
                 console.log('  status ' + status);
 
               case 36:
-                _context.prev = 36;
-                _context.next = 39;
-                return this._runCommands(env, "Finally", _project2.default.finally);
+                if (!(_project2.default.urls && _project2.default.urls[env])) {
+                  _context.next = 40;
+                  break;
+                }
 
-              case 39:
-                return _context.finish(36);
+                console.log('Prewarming cache on ' + _project2.default.urls[env] + '...');
+                _context.next = 40;
+                return _execa2.default.shell('mkdir -p tmp/prewarmcache && wget -nd -r -P tmp/prewarmcache -A jpeg,jpg,bmp,gif,png ' + _project2.default.urls[env] + ' && rm -rf tmp/prewarmcache', { stdio: [0, 1, 2] });
 
               case 40:
+                _context.prev = 40;
+                _context.next = 43;
+                return this._runCommands(env, "Finally", _project2.default.finally);
+
+              case 43:
+                return _context.finish(40);
+
+              case 44:
               case 'end':
                 return _context.stop();
             }
           }
-        }, _callee, this, [[0,, 36, 40]]);
+        }, _callee, this, [[0,, 40, 44]]);
       }));
 
       function deploy(_x) {
