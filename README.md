@@ -35,6 +35,10 @@ module.exports = {
     production: "<distribution id>",
     staging: "<distribution id>",
   },
+  urls: {
+    production: "<prod web url for prewarming>",
+    staging: "<staging web url for prewarming>",
+  },
 };
 ```
 

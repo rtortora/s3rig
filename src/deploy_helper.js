@@ -37,6 +37,11 @@ class DeployHelper {
         }
       }
 
+      if (Project.urls && Project.urls[env]) {
+        console.log(`Prewarming cache on ${Project.urls[env]}...`);
+        await Execa.shell(`mkdir -p tmp/prewarmcache && wget -nd -r -P tmp/prewarmcache -A jpeg,jpg,bmp,gif,png ${Project.urls[env]} && rm -rf tmp/prewarmcache`, { stdio: [0, 1, 2] });
+      }
+
     } finally {
       await this._runCommands(env, "Finally", Project.finally);
     }
