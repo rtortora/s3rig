@@ -6,7 +6,8 @@
   "license": "UNLICENSED",
   "scripts": {
     "build": "node_modules/.bin/babel --source-maps -d dist/ src/",
-    "prepare": "yarn run build"
+    "prepare": "yarn run build",
+    "postversion": "git push --tags"
   },
   "bin": {
     "s3rig": "./dist/s3rig.bin.js"
