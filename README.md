@@ -31,6 +31,7 @@ module.exports = {
     production: "<bucket name>",
     staging: "<bucket name>",
   },
+  prefix: "path/to",
   cloudfront: {
     production: "<distribution id>",
     staging: "<distribution id>",

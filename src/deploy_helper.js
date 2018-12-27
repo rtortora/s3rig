@@ -9,8 +9,15 @@ class DeployHelper {
     try {
       await this._runCommands(env, "Building", Project.build);
 
-      console.log(`Syncing to S3...`);
-      const cmd = `cd ${Project.upload} && env AWS_ACCESS_KEY_ID="${Project.accessKey}" AWS_SECRET_ACCESS_KEY="${Project.secretKey}" aws s3 sync . s3://${Project.buckets[env]} --delete --cache-control max-age=31536000,public`;
+      let syncTarget = `s3://${Project.buckets[env]}`;
+      if (Project.prefix) {
+        if (!syncTarget.endsWith("/")) {
+          syncTarget += "/";
+        }
+        syncTarget += Project.prefix;
+      }
+      console.log(`Syncing to ${syncTarget}`);
+      const cmd = `cd ${Project.upload} && env AWS_ACCESS_KEY_ID="${Project.accessKey}" AWS_SECRET_ACCESS_KEY="${Project.secretKey}" aws s3 sync . ${syncTarget} --delete --cache-control max-age=31536000,public`;
       console.log(`> ${cmd}`);
       await Execa.shell(cmd, { stdio: [0, 1, 2] });
 
